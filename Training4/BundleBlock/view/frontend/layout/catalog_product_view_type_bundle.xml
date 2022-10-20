@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <referenceContainer name="product.info.main">
+        <block  name="bundle_block" as="other" template="Training4_BundleBlock::bundle.phtml"/>
+    </referenceContainer>
+</layout>
