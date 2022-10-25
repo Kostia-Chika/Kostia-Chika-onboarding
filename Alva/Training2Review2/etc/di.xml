@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Review\Controller\Product\Post">
+        <plugin disabled="false" name="Review_Controller_Product" sortOrder="10"
+                type="Alva\Training2Review2\Plugin\ReviewPlugin"/>
+    </type>
+</config>

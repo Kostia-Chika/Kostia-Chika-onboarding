@@ -4,28 +4,37 @@ namespace Training3\OrderController\Model;
 
 class OrderModel
 {
+    public function __construct(
+        \Magento\Sales\Model\OrderRepository $orderRepository
+    ) {
+        $this->orderRepository = $orderRepository;
+    }
+
     /**
      * Get an order with a status, total, invoice and item
      *
      * @param $id integer orders id
+     *
      * @return array
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getOrder($id){
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($id);
+    public function getOrder($id)
+    {
+        $order = $this->orderRepository->get($id);
         $orderRes = [];
-        $orderRes['Status'] = $order->getStatus();
+        $orderRes['status'] = $order->getStatus();
         $orderRes['total'] = $order->getGrandTotal();
         $items = [];
-        foreach ($order->getAllItems() as $item){
+        foreach ($order->getAllItems() as $item) {
             $itemParams = [];
-            array_push($itemParams, $item->getSku(), $item->getProductId(),$item->getBasePrice());
-            $items[] =  $itemParams;
+            $itemParams['sku'] = $item->getSku();
+            $itemParams['id'] = $item->getProductId();
+            $itemParams['price'] = $item->getBasePrice();
+            $items[] = $itemParams;
         }
         $orderRes['items'] = $items;
-        $orderRes['invoice'] = $order->getSubtotalInvoiced();
+        $orderRes['invoice'] = $order->getSubtotalInvoiced() ?? "0.0";
         return $orderRes;
     }
 }
