@@ -1,0 +1,40 @@
+<?php
+
+namespace Training5\Vendor\Setup;
+
+use Magento\Framework\Setup\InstallDataInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+
+class InstallData implements InstallDataInterface
+{
+
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
+        $setup->startSetup();
+        $tableName = $setup->getTable('training4_vendor');
+        if ($setup->getConnection()->isTableExists($tableName)) {
+            $data = [
+                [
+                    'name' => 'vendor1'
+                ],
+                [
+                    'name' => 'vendor2'
+                ],
+                [
+                    'name' => 'vendor3'
+                ],
+                [
+                    'name' => 'vendor4'
+                ],
+                [
+                    'name' => 'vendor5'
+                ],
+            ];
+            foreach ($data as $item) {
+                $setup->getConnection()->insert($tableName, $item);
+            }
+        }
+        $setup->endSetup();
+    }
+}

@@ -1,0 +1,8 @@
+<?php
+/** @var \Training5\Vendor\Block\Vendor $block */
+$vendors = $block->getVendors();
+?>
+<h2>Vendors</h2>
+<?php foreach ($vendors as $item): ?>
+    <div><?= $item->getData('name') ?></div>
+<?php endforeach; ?>
