@@ -7,16 +7,16 @@ use Magento\Framework\View\Element\Template;
 class Vendor extends \Magento\Framework\View\Element\Template
 {
     public function __construct(
-        Template\Context                                               $context,
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        \Training5\Vendor\Model\ResourceModel\Vendor\Collection        $vendorCollection,
-        \Training5\Vendor\Model\ResourceModel\VendorProduct\Collection $vendorProductCollection,
-        \Magento\Catalog\Helper\Data                                   $helperData,
-        array                                                          $data = []
+        Template\Context                                                      $context,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory        $productCollectionFactory,
+        \Training5\Vendor\Model\ResourceModel\Vendor\CollectionFactory        $vendorCollectionFactory,
+        \Training5\Vendor\Model\ResourceModel\VendorProduct\CollectionFactory $vendorProductCollectionFactory,
+        \Magento\Catalog\Helper\Data                                          $helperData,
+        array                                                                 $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->vendorCollection = $vendorCollection;
-        $this->vendorProductCollection = $vendorProductCollection;
+        $this->vendorCollectionFactory = $vendorCollectionFactory;
+        $this->vendorProductCollectionFactory = $vendorProductCollectionFactory;
         $this->helper = $helperData;
         parent::__construct($context, $data);
     }
@@ -30,10 +30,12 @@ class Vendor extends \Magento\Framework\View\Element\Template
     {
         $product = $this->helper->getProduct();
         $product_id = $product->getId();
-        $vendorProduct = $this->vendorProductCollection->addFieldToSelect('vendor_id')->addFieldToFilter('product_id', ['eq' => $product_id]);
+        $vendorProductCollection = $this->vendorProductCollectionFactory->create();
+        $vendorProduct = $vendorProductCollection->addFieldToSelect('vendor_id')->addFieldToFilter('product_id', ['eq' => $product_id]);
         $vendors = [];
+        $vendorCollection = $this->vendorCollectionFactory->create();
         foreach ($vendorProduct->getItems() as $item) {
-            $vendors[] = $this->vendorCollection->getItemById($item->toString());
+            $vendors[] = $vendorCollection->getItemById($item->toString());
         }
         return $vendors;
     }

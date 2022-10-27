@@ -10,10 +10,10 @@ class UpgradeData implements UpgradeDataInterface
 {
     public function __construct(
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        \Training5\Vendor\Model\ResourceModel\Vendor\Collection        $vendorCollection
+        \Training5\Vendor\Model\ResourceModel\Vendor\CollectionFactory $vendorCollectionFactory
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->vendorCollection = $vendorCollection;
+        $this->vendorCollectionFactory = $vendorCollectionFactory;
     }
 
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
@@ -28,10 +28,11 @@ class UpgradeData implements UpgradeDataInterface
                 $setup->getConnection()->isTableExists($vendor_product) &&
                 $setup->getConnection()->isTableExists($product)) {
                 $productCollection = $this->productCollectionFactory->create();
+                $vendorCollection = $this->vendorCollectionFactory->create();
                 $productCount = $productCollection->count();
-                $vendorCount = $this->vendorCollection->count();
+                $vendorCount = $vendorCollection->count();
                 $data = [];
-                for ($i = 1; $i <= $productCollection->count(); $i++) {
+                for ($i = 1; $i <= $productCount; $i++) {
                     $vendor_id = rand(1, $vendorCount);
                     $data[] = [
                         'product_id' => $i,
