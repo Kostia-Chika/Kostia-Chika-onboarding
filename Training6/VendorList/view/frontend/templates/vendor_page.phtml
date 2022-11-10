@@ -1,0 +1,22 @@
+<?php
+/** @var \Training6\VendorList\Block\VendorBlock $block */
+?>
+<div><h2>Vendor name</h2></div>
+<div class="name"><?= $block->getVendorName() ?></div>
+<div><h2>Vendor's products</h2></div>
+<div>
+    <table class="table">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Price</td>
+        </tr>
+        <?php foreach ($block->getProducts() as $item): ?>
+            <tr>
+                <td><?= $item->getId() ?></td>
+                <td><?= $item->getName() ?></td>
+                <td><?= $item->getPrice() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

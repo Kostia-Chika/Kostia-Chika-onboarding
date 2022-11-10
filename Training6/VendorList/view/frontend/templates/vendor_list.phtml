@@ -1,0 +1,68 @@
+<div>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" title="Filter">
+    </div>
+    <div>
+        <label for="order">Order</label>
+        <select id="order">
+            <option value="ASC">Increasing</option>
+            <option value="DESC">Descending</option>
+        </select>
+    </div>
+    <button id="button">filter</button>
+</div>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Product count</td>
+    </tr>
+</table>
+<table id="myId">
+</table>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function ($) {
+        $(document).ready(function () {
+            let customurl = "<?php echo $this->getUrl() . 'vendor/vendors/table'?>";
+            $.ajax({
+                url: customurl,
+                type: 'GET',
+                dataType: 'text',
+                data: {
+                    "sort": 'ASC',
+                    "name": '',
+                },
+                success: function (data) {
+                    $("#myId").html(data);
+                    console.log(data);
+                },
+                error: function (xhr, status, errorThrown) {
+                    console.log('Error happens. Try again.');
+                }
+            });
+            $("#button").click(function () {
+                let customurl = "<?php echo $this->getUrl() . 'vendor/vendors/json'?>";
+                let order = $('#order').find(":selected").val();
+                let name = $('#name').val();
+                $.ajax({
+                    url: customurl,
+                    type: 'GET',
+                    dataType: 'text',
+                    data: {
+                        "sort": order,
+                        "name": name,
+                    },
+                    success: function (data) {
+                        $("#myId").html(data);
+                        console.log(data);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        console.log('Error happens. Try again.');
+                    }
+                });
+            })
+        });
+    })
+</script>

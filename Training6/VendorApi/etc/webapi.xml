@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/rest_dev/load/:id" method="GET">
+        <service class="Training6\VendorRepository\Api\VendorRepositoryInterface" method="load"/>
+        <resources>
+            <resource ref="Training6_VendorApi::load"/>
+        </resources>
+    </route>
+    <route url="/V1/rest_dev/save" method="PUT">
+        <service class="Training6\VendorRepository\Api\VendorRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Training6_VendorApi::save"/>
+        </resources>
+    </route>
+    <route url="/V1/rest_dev/get_list" method="GET">
+        <service class="Training6\VendorRepository\Api\VendorRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Training6_VendorApi::get_list"/>
+        </resources>
+    </route>
+    <route url="/V1/rest_dev/get_associated_product_ids" method="GET">
+        <service class="Training6\VendorRepository\Api\VendorRepositoryInterface" method="getAssociatedProductIds"/>
+        <resources>
+            <resource ref="Training6_VendorApi::get_associated_product_ids"/>
+        </resources>
+    </route>
+</routes>
