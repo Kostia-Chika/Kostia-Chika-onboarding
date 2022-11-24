@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="training4_vendor2" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="text" name="name" nullable="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="vendor_product2" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" unsigned="false" nullable="false" identity="true"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true"/>
+        <column xsi:type="int" name="vendor_id" nullable="false" unsigned="true"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VENDOR_PRODUCT2_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID"
+                    table="vendor_product"
+                    column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="VENDOR_PRODUCT2_VENDOR_ID_TRAINING4_VENDOR2_ENTITY_ID"
+                    table="vendor_product"
+                    column="vendor_id" referenceTable="training4_vendor2" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

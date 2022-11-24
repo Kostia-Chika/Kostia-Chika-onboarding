@@ -1,0 +1,23 @@
+{
+    "training4_vendor2": {
+        "column": {
+            "entity_id": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "vendor_product2": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "vendor_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VENDOR_PRODUCT2_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "VENDOR_PRODUCT2_VENDOR_ID_TRAINING4_VENDOR2_ENTITY_ID": true
+        }
+    }
+}
